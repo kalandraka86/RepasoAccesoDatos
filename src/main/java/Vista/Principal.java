@@ -2,96 +2,81 @@ package Vista;
 
 import Controller.ControllerPrincipal;
 
-import java.awt.EventQueue;
-
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 
-public class Principal extends JFrame{
+public class Principal extends JFrame {
 
-	private JFrame frame;
-	private JPanel panel;
-	private JPanel panel_1;
-	private JButton btnCargar;
-	private JButton btnNewButton_1;
-	private JButton btnNewButton_2;
-	private JTable tabla;
+    private JPanel panelPrincipal;
+    private JPanel panelBotones;
+    private JButton btnCargar;
+    private JButton btnEliminar;
+    private JButton btnSalir;
+    private JTable tabla;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Principal window = new Principal();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+    public Principal() {
+        initialize();
+    }
 
-	/**
-	 * Create the application.
-	 */
-	public Principal() {
-		initialize();
-	}
+    /**
+     * Initialize the contents of the frame.
+     */
+    private void initialize() {
+        setBounds(100, 100, 628, 397);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        getContentPane().setLayout(null);
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 628, 397);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+        panelPrincipal = new JPanel();
+        panelPrincipal.setBounds(82, 32, 455, 244);
+		panelPrincipal.setLayout(new BorderLayout());
+        getContentPane().add(panelPrincipal);
 
-		panel = new JPanel();
-		panel.setBounds(82, 32, 455, 244);
-		frame.getContentPane().add(panel);
+        tabla = new JTable();
+        JScrollPane js = new JScrollPane(tabla);
+        panelPrincipal.add(js, BorderLayout.CENTER);
 
-		tabla = new JTable();
+        panelBotones = new JPanel();
+        panelBotones.setBounds(0, 333, 628, 36);
+        getContentPane().add(panelBotones);
 
-		JScrollPane js = new JScrollPane(tabla);
-		panel.add(js);
+        btnCargar = new JButton("Cargar");
+        btnCargar.addActionListener(new BtnButtonActionListener());
+        panelBotones.add(btnCargar);
 
-		// Panel inferior para los botones
-		panel_1 = new JPanel();
-		panel_1.setBounds(0, 333, 628, 36);
-		frame.getContentPane().add(panel_1);
+        btnEliminar = new JButton("Borrar");
+        btnEliminar.addActionListener(new BtnButtonActionListener());
+        panelBotones.add(btnEliminar);
 
-		// Botones adicionales
-		btnCargar = new JButton("Cargar");
-		btnCargar.addActionListener(new BtnButtonActionListener());
-		panel_1.add(btnCargar);
+        btnSalir = new JButton("Salir");
+        btnSalir.addActionListener(new BtnButtonActionListener());
+        panelBotones.add(btnSalir);
 
-		btnNewButton_1 = new JButton("Borrar");
-		panel_1.add(btnNewButton_1);
+        this.setVisible(true);
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
+    }
 
-		btnNewButton_2 = new JButton("Salir");
-		panel_1.add(btnNewButton_2);
 
-		this.setVisible(true);
-		this.setLocationRelativeTo(null);
-		this.setResizable(false);
-	}
-
-	
-	private class BtnButtonActionListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			if(e.getSource() == btnCargar) {
+    private class BtnButtonActionListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            if (e.getSource() == btnCargar) {
                 try {
                     ControllerPrincipal.cargarTabla(tabla);
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
             }
-		}
-	}
+
+            if (e.getSource() == btnEliminar) {
+                System.out.print(tabla.getValueAt(tabla.getSelectedRow(), 0));
+            }
+
+            if (e.getSource() == btnSalir) {
+                System.exit(0);
+            }
+        }
+    }
 }

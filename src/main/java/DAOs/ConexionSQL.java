@@ -7,9 +7,9 @@ import java.sql.SQLException;
 
 public class ConexionSQL {
 
-    private static final String USER = "SA";
-    private static final String PASSWORD = "sqlS3rver!";
-    private static final String CONEX = "jdbc:sqlserver://localhost:1433;databaseName=master;user=" + USER + ";password=" + PASSWORD + ";encrypt=false;";
+    private static final String USER = "Hugo";
+    private static final String PASSWORD = "h1234";
+    private static final String CONEX = "jdbc:sqlserver://localhost:1433;databaseName=Repaso;user=" + USER + ";password=" + PASSWORD + ";encrypt=true;trustServerCertificate=true;";
     private static  ConexionSQL conexion = null;
 
 

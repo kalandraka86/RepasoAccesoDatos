@@ -19,7 +19,7 @@ public class DAOClientes {
     public ArrayList<Cliente> obtenerClientes() throws SQLException {
         Statement statement = getStatementClientes();
 
-        String selectSql = "SELECT DISTINCT ID, nombreCompleto, numeroCuenta FROM RepasoDatos.dbo.Clientes; ";
+        String selectSql = "SELECT DISTINCT ID, NombreCompleto, NumeroCuenta FROM Clientes; ";
         ResultSet resultSet = statement.executeQuery(selectSql);
 
         while (resultSet.next()) {
