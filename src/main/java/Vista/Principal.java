@@ -1,6 +1,7 @@
 package Vista;
 
 import Controller.ControllerPrincipal;
+import Recursos.Cliente;
 
 import javax.swing.*;
 import java.awt.*;
@@ -71,7 +72,20 @@ public class Principal extends JFrame {
             }
 
             if (e.getSource() == btnEliminar) {
-                System.out.print(tabla.getValueAt(tabla.getSelectedRow(), 0));
+                if(tabla.getSelectedRow() == -1){
+                    JOptionPane.showMessageDialog(null,"Tienes que tener seleccionada una fila","ERROR",JOptionPane.ERROR_MESSAGE);
+
+
+                }
+                else {
+                    Cliente cliente = new Cliente((Integer) tabla.getValueAt(tabla.getSelectedRow(),0),tabla.getValueAt(tabla.getSelectedRow(),1).toString(),tabla.getValueAt(tabla.getSelectedRow(),2).toString());
+                    System.out.println(cliente);
+                    try {
+                        ControllerPrincipal.eliminarCliente(cliente,tabla);
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                }
             }
 
             if (e.getSource() == btnSalir) {
